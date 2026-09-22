@@ -75,4 +75,39 @@ jobs:
           name: app-release-apk
           path: |
             android/app/build/outputs/apk/release/*.apk
-          retention-days: 14
+          retention-days: 14import { CapacitorConfig } from '@capacitor/cli';
+
+const config: CapacitorConfig = {
+  appId: 'com.via.app',
+  appName: 'Via',
+  webDir: 'dist', // Match your build output folder ('dist', 'www', or 'build')
+  bundledWebRuntime: false,
+  
+  server: {
+    // Uses standard HTTPS schema inside the Android WebView (fixes CORS and modern cookie issues)
+    androidScheme: 'https',
+    cleartext: false
+  },
+
+  android: {
+    // Improves scrolling performance and WebView behavior
+    allowMixedContent: false,
+    captureInput: true,
+    backgroundColor: '#ffffff',
+    // Helps with keyboard resizing behavior
+    adjustPan: true
+  },
+
+  plugins: {
+    SplashScreen: {
+      launchShowDuration: 1500,
+      launchAutoHide: true,
+      backgroundColor: "#ffffff",
+      androidScaleType: "CENTER_CROP",
+      showSpinner: false
+    }
+  }
+};
+
+export default config;
+
